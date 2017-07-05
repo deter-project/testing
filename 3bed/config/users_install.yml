@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+
+    - name: Building and installing testbed
+      command: /tmp/config/build_install.sh
