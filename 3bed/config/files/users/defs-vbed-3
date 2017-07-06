@@ -1,0 +1,42 @@
+#
+# This is an example definitions file for configure.
+#
+# Use the --with-TBDEFS=filename to specify your own file.
+# If you add a variable, be sure to go and update configure.in.
+#
+
+# The subdomain name of this installation
+OURDOMAIN=vbed3.deterlab.net
+THISHOMEBASE=vbed3.deterlab.net
+SITENAME="USC/ISI"
+SITECOPYRIGHT="University of Southern California Information Sciences Institute (USC/ISI)"
+SITEDATES=2017
+
+#
+# SSL Setup
+#
+SSLCERT_COUNTRY="US"
+SSLCERT_STATE="California"
+SSLCERT_LOCALITY="Marina del Rey"
+SSLCERT_ORGNAME="DETER Network Testbed"
+
+#
+# Domain, host names, and external IP addresses
+#
+# The network that boss and users sit on
+EXTERNAL_TESTBED_NETWORK=10.0.23.0
+EXTERNAL_TESTBED_NETMASK=255.255.255.0
+
+# This should be boss.<yoursubdomain as defined in THISHOMEBASE>
+EXTERNAL_BOSSNODE_IP=10.0.23.100
+
+# This should be users.<yoursubdomain as defined in THISHOMEBASE>
+EXTERNAL_USERNODE_IP=10.0.23.101
+
+# Named forwarders, typically your upstream DNS servers.
+NAMED_FORWARDERS="8.8.8.8"
+
+FSDIR_GROUPS=/groups
+FSDIR_PROJ=/proj
+FSDIR_USERS=/users
+FSDIR_SHARE=/share

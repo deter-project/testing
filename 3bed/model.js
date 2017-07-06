@@ -1,65 +1,115 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * spine & leaf system
+ * 3-node testing system
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// setup directories, MODIFY THIS FOR YOUR ENVIRONMENT
-dev = '/space',
-dirs = {
-  deter:  dev + '/deter',
-  walrus: dev + '/walrustf',
-  raven:  dev + '/raven',
-}
+// hey! listen! ~~~
+// TBDIR
+// TOPODIR 
+// SWITCHDIR
+// WALRUSDIR
+// AGXDIR
+// NLDIR
+// are environment variables that you must set when calling rvn build
 
 // define the mounts we will use later in node definitions
-deter_mount = {
-  'source': dirs.deter,
-  'point': '/opt/deter'
-};
+deter_mounts = [{
+    'source': env.TBDIR,
+    'point': '/opt/deter/testbed'
+  },{
+    'source': env.SWITCHDIR,
+    'point': '/opt/deter/switch-drivers'
+  }
+];
+
+///////
+// mounts ~~~~~~~
+////
 
 configMount = (name) => ({
-  'source': dirs.raven + '/models/3bed/config/files/' +name,
+  'source': env.TOPODIR + '/config/files/' +name,
   'point': '/tmp/config'
 });
 
-agxMount = { 'source': '/space/agx',         'point': '/opt/agx' },
-netlinkMount = { 'source': '/space/netlink', 'point': '/opt/netlink' },
+agxMount = { 
+  'source': env.AGXDIR,   
+  'point': '/opt/agx' 
+};
+
+netlinkMount = { 
+  'source': env.NLDIR, 
+  'point': '/opt/netlink' 
+};
 
 
-// testbed infrastructure nodes
-infra = [boss, users] = 
-  ['boss', 'users'].map(name => 
-    Node(name, 1, [deter_mount, configMount(name)], 'freebsd-11', 'freebsd') 
-  );
+///////
+// nodes ~~~~~~~~
+////
 
-router = 
-  Node('router', 1, [configMount('router')], 'freebsd-11-router', 'freebsd');
+[boss, users] = ['boss', 'users'].map(name => ({
+    'name': name,
+    'image': 'freebsd-11',
+    'os': 'freebsd',
+    'level': 1,
+    'mounts': [
+      ...deter_mounts,
+      configMount(name)
+    ]
+  })
+);
 
-// all nodes
-nodes = [
-  ...Range(3).map(i => Node(`n${i}`, 3, [], 'netboot', 'netboot')),
-  ...infra, router,
-  Node('walrus', 
-    2, [
-      { 'source': dirs.walrus, 'point': '/opt/walrus' },
-      configMount('walrus'),
-    ],
-    'debian-stretch', 'linux'
-  )
-];
+router = {
+  'name': 'router',
+  'image': 'freebsd-11-router',
+  'os': 'freebsd',
+  'level': 1,
+  'mounts': [ configMount('router') ]
+};
+
+testnodes = Range(3).map(i => ({
+    'name': `n${i}`,
+    'image': 'netboot',
+    'os': 'netboot',
+    'level': 3,
+    'mounts': [ configMount('router') ]
+  })
+);
+
+walrus = {
+  'name': 'walrus',
+  'image': 'debian-stretch',
+  'os': 'linux',
+  'level': 2,
+  'mounts': [ 
+    configMount('walrus'),
+    { 'source': env.WALRUSDIR, 'point': '/opt/walrus' },
+  ]
+}
+
+nodes = [boss, users, router, walrus, ...testnodes]
+
+///////
+// switches ~~~~~~~
+////
 
 
 switches = [
-  Switch('stem', 2, [deter_mount, configMount('stem'), agxMount, netlinkMount]),
-  Switch('leaf', 4, [deter_mount, configMount('leaf'), agxMount, netlinkMount])
+  Switch('stem', 2, [...deter_mounts, configMount('stem'), agxMount, netlinkMount]),
+  Switch('leaf', 4, [...deter_mounts, configMount('leaf'), agxMount, netlinkMount])
 ];
 
+///////
+// links ~~~~~~~~~~
+////
+
 links = [
-  ...Range(2).map(i => Link(`${infra[i].name}`, 'eth0', 'stem', `swp${i+1}`)),
+  Link('boss', 'eth0', 'stem', 'swp1'),
+  Link('users', 'eth0', 'stem', 'swp2'),
   Link('router', 'eth0', 'stem', 'swp3'),
   ...Range(3).map(i => Link(`n${i}`, 'eth0', 'stem', `swp${i+4}`, {boot: 1})),
   ...Range(3).map(i => Link(`n${i}`, 'eth0', 'leaf', `swp${i+1}`)),
-  Link('walrus', 'eth0', 'stem', 'swp7'),
-  Link('stem', 'swp8', 'leaf', 'swp4')
+  Link('walrus', 'eth0', 'stem', 'swp8'),
+  Link('stem', 'swp8', 'leaf', 'swp4'),
+
 ];
 
 topo = {
