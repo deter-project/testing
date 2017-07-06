@@ -6,6 +6,7 @@
     objdir: /usr/testbed/obj 
     srcdir: /usr/testbed/src
     mirror: mirror.deterlab.net
+    tbdir: "{{ lookup('env', 'TBDIR') }}" 
 
   tasks:
 
@@ -19,7 +20,7 @@
       include: /space/deter/testbed/install/boss_post_install_tasks.yml 
 
     - name: setting up api
-      include: /space/deter/testbed/core/api/setup_tasks.yml
+      include: "{{tbdir}}/core/api/setup_tasks.yml"
 
     - name: installing api
-      include: /space/deter/testbed/core/api/install_tasks.yml
+      include: "{{tbdir}}/core/api/install_tasks.yml"
