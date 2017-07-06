@@ -17,7 +17,7 @@
     #running on fbsd from a linux host ansible that is presumably a different
     #version fails
     - name: Running post install tasks
-      include: /space/deter/testbed/install/boss_post_install_tasks.yml 
+      include: "{{tbdir}}/install/boss_post_install_tasks.yml"
 
     - name: setting up api
       include: "{{tbdir}}/core/api/setup_tasks.yml"
