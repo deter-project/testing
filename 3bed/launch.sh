@@ -91,6 +91,7 @@ phase "commissioning"
 
   echo "commissioning new nodes"
   rvn ansible  boss config/boss_3bed_commission.yml
+  sleep 10 #the dhcp reload cycle can take some time ...
 
   echo "rebooting testbed nodes"
   rvn reboot   n0 n1 n2

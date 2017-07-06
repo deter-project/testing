@@ -107,7 +107,7 @@ links = [
   Link('router', 'eth0', 'stem', 'swp3'),
   ...Range(3).map(i => Link(`n${i}`, 'eth0', 'stem', `swp${i+4}`, {boot: 1})),
   ...Range(3).map(i => Link(`n${i}`, 'eth0', 'leaf', `swp${i+1}`)),
-  Link('walrus', 'eth0', 'stem', 'swp8'),
+  Link('walrus', 'eth0', 'stem', 'swp7'),
   Link('stem', 'swp8', 'leaf', 'swp4'),
 
 ];
