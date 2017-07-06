@@ -2,6 +2,11 @@
 - hosts: all
   become: true
 
+  vars:
+    objdir: /usr/testbed/obj 
+    srcdir: /usr/testbed/src
+    mirror: mirror.deterlab.net
+
   tasks:
 
     - name: Building and installing testbed
@@ -12,10 +17,6 @@
     #version fails
     - name: Running post install tasks
       include: /space/deter/testbed/install/boss_post_install_tasks.yml 
-      vars:
-        objdir: /usr/testbed/obj 
-        srcdir: /usr/testbed/src
-        mirror: mirror.deterlab.net
 
     - name: setting up api
       include: /space/deter/testbed/core/api/setup_tasks.yml
