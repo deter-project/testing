@@ -1,13 +1,14 @@
 ---
 - hosts: users
+  become: true
 
   tasks:
     - name: define experiment
-      file:
-        state: touch
-        path: /tmp/def-xpt
+      shell: su adama -c "./define_two.sh"
+      args:
+        chdir: /tmp/config
 
     - name: launch experiment
-      file:
-        state: touch
-        path: /tmp/launch-xpt
+      shell: su adama -c "./run_two.sh"
+      args:
+        chdir: /tmp/config
