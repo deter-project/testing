@@ -8,7 +8,17 @@
       args:
         chdir: /tmp/config
 
-    - name: launch experiment
+    - name: swap experiment in
       shell: su adama -c "./run_two.sh"
+      args:
+        chdir: /tmp/config
+
+    - name: swap experiment out
+      shell: su adama -c "./stop_two.sh"
+      args:
+        chdir: /tmp/config
+
+    - name: destroy experiment
+      shell: su adama -c "./destroy_two.sh"
       args:
         chdir: /tmp/config
