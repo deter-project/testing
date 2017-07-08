@@ -2,12 +2,13 @@
   "name": "deter-basic",
   "tests": [
     {
-      "name": "two-launch",
+      "name": "experiment-lifecycle",
       "launch": "ansible-playbook two-test.yml",
       "timeout": 3600,
       "success": [
-        {"status": "ok", "who": "snmpit", "message": "vlan setup complete"},
-        {"status": "ok", "who": "topobot", "message": "two-test connectivity ok"}
+        {"status": "ok", "who": "batchexp", "message": "galactica:two created"},
+        {"status": "ok", "who": "swapexp", "message": "galactica:two active"},
+        {"status": "ok", "who": "linktest", "message": "galactica:two connectivity ok"}
       ],
       "fail": [
         {"status": "error", "who": "*", "message": "*"}

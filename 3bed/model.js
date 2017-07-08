@@ -52,7 +52,8 @@ netlinkMount = {
     'level': 1,
     'mounts': [
       ...deter_mounts,
-      configMount(name)
+      configMount(name),
+      { 'source': env.WALRUSDIR, 'point': '/opt/walrus' }
     ]
   })
 );
