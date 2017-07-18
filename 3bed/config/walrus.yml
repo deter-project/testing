@@ -73,15 +73,15 @@
         - github.com/fatih/color
         - github.com/go-redis/redis
 
-    - shell: go install
+    - shell: go install {{item}}
       args:
         chdir: /home/rvn/.go/src/github.com/rcgoodfellow/walrustf/wtf
       environment:
         GOPATH: /home/rvn/.go
         GOBIN: /home/rvn/.go/bin
-	  with_items:
-		- wtf.go
-		- wtf-watch.go
+      with_items:
+        - wtf.go
+        - wtf-watch.go
 
     - blockinfile:
         path: /etc/ansible/hosts
