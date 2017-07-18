@@ -43,6 +43,12 @@
         regexp: "^bind *"
         line: "bind 0.0.0.0"
 
+    - name: Set redis keyspace notification settings
+      lineinfile:
+        name: /etc/redis/redis.conf
+        regexp: "^notify-keyspace-events *"
+        line: 'notify-keyspace-events "s$KE"'
+
     - name: Restart redis
       command: service redis restart
 
