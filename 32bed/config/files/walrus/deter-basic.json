@@ -1,0 +1,20 @@
+{
+  "name": "deter-basic",
+  "tests": [
+    {
+      "name": "experiment-lifecycle",
+      "launch": "ansible-playbook two-test.yml",
+      "timeout": 3600,
+      "success": [
+        {"status": "ok", "who": "batchexp", "message": "galactica:two created"},
+        {"status": "ok", "who": "swapexp", "message": "galactica:two swapped-in"},
+        {"status": "ok", "who": "swapexp", "message": "galactica:two swapped-out"},
+        {"status": "ok", "who": "endexp", "message": "galactica:two terminated"}
+      ],
+      "fail": [
+        {"status": "error", "who": "*", "message": "*"}
+      ]
+    }
+  ]
+}
+

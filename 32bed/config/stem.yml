@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+
+    - include: cumulus_basic_tasks.yml
+
