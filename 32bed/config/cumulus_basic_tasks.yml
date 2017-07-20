@@ -58,5 +58,15 @@
     GOPATH: /root/.go
     GOBIN: /root/.go/bin
 
-- shell: nohup /root/.go/bin/qbridge > /dev/null 2>&1  &
+- shell: "{{item}}"
+  with_items:
+    # set up the bridge
+    - ip link set down dev bridge | sleep 0
+    - brctl delbr bridge | sleep 0
+    - brctl addbr bridge
+    - ip link set bridge type bridge vlan_filtering 1
+    - find /sys/class/net -name "swp*" -exec basename '{}' \; | xargs -n 1 brctl addif bridge
+    - find /sys/class/net -name "swp*" -exec basename '{}' \; | xargs -n 1 bridge vlan del vid 1 dev 
+    - find /sys/class/net -name "swp*" -exec basename '{}' \; | xargs -n 1 ip link set up dev
 
+- shell: nohup /root/.go/bin/qbridge > /dev/null 2>&1  &
