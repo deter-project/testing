@@ -1,5 +1,5 @@
 /*
- * rvn2cumulus
+ * controlmacs
  * =====----~~
  *
  *   controlmacs is a command line program that reads an expanded raven

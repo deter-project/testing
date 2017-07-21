@@ -1,6 +1,6 @@
 [
-  "switch": {
-    "name": "stem",
+  {
+    "name": "172.22.0.80",
     "interfaces": {
       "boss": {
         "vlan": {
@@ -17,7 +17,27 @@
           "trunk": [2002, 2003, 2004, 2005, 2006, 2007]
         }
       },
-      "n*": {
+      "walrus": {
+        "vlan": {
+          "access": 2005
+        }
+      },
+      "trunk": {
+        "vlan": {
+          "access": 2004
+        }
+      },
+      "spine*": {
+        "vlan": {
+          "access": 2004
+        }
+      },
+      "leaf*": {
+        "vlan": {
+          "access": 2004
+        }
+      },
+      "~": {
         "vlan": {
           "access": 2003
         }
