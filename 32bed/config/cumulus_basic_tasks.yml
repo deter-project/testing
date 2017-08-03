@@ -68,5 +68,6 @@
     - find /sys/class/net -name "swp*" -exec basename '{}' \; | xargs -n 1 brctl addif bridge
     - find /sys/class/net -name "swp*" -exec basename '{}' \; | xargs -n 1 bridge vlan del vid 1 dev 
     - find /sys/class/net -name "swp*" -exec basename '{}' \; | xargs -n 1 ip link set up dev
+    - ip link set up dev bridge
 
 - shell: nohup /root/.go/bin/qbridge > /dev/null 2>&1  &

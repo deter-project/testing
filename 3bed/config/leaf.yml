@@ -63,6 +63,7 @@
       environment:
         GOPATH: /root/.go
       with_items:
+        - github.com/pkg/profile
         - github.com/vishvananda/netlink/nl
 
     - shell: go install
