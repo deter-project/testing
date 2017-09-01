@@ -70,6 +70,7 @@ testnodes = Range(3).map(i => ({
     'name': `n${i}`,
     'image': 'netboot',
     'os': 'netboot',
+    'no-testnet': true,
     'level': 3,
     'mounts': [ configMount('router') ]
   })
