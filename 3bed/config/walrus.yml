@@ -87,7 +87,6 @@
         GOBIN: /home/rvn/.go/bin
       with_items:
         - wtf.go
-        - wtf-watch.go
 
     - blockinfile:
         path: /etc/ansible/hosts
