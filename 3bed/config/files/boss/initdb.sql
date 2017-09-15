@@ -43,3 +43,10 @@ replace into switch_stacks (
   ) values ('leaf', 'Experiment', 1),
            ('stem', 'Control', 1)
 ;
+
+insert into node_type_attributes (
+  type, 
+  attrkey, 
+  attrvalue, 
+  attrtype) values ('qbridge', 'snmpit_driver', 'snmpit_qbridge', 'string')
+;
