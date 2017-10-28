@@ -80,7 +80,7 @@ phase "commissioning"
   echo "rebooting testbed nodes so boss picks them up"
   rvn reboot   n0 n1 n2
 
-  deter_admin="deter-admin `rvn ip boss`"
+  deter_admin="deter-admin -u adama -p :LKJPOIU `rvn ip boss`"
   echo "waiting for testbed nodes to come up as new nodes"
   cnt=$($deter_admin newnodes | wc -l)
   while [[ "$cnt" -lt "3" ]]; do
