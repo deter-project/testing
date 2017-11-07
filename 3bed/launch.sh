@@ -32,7 +32,7 @@ phase "deploying"
   rvn deploy
 
   echo "waiting for vms to come on network"
-  rvn pingwait users boss router stem leaf walrus
+  rvn pingwait users boss router stem leaf walrus steam
 
   echo "configuring vms"
   rvn configure

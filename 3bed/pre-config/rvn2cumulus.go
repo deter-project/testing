@@ -74,7 +74,9 @@ func main() {
 			configs[z.Name] = append(configs[z.Name], usersConfig(z.Port))
 		} else if n.Name == "walrus" {
 			configs[z.Name] = append(configs[z.Name], walrusConfig(z.Port))
-		} else if n.Name == "leaf" {
+		} else if n.Name == "steam" {
+			configs[z.Name] = append(configs[z.Name], steamConfig(z.Port))
+	    } else if n.Name == "leaf" {
 			configs[z.Name] = append(configs[z.Name], leafConfig(z.Port))
 		} else if n.Name == "router" {
 			configs[z.Name] = append(configs[z.Name], routerConfig(z.Port))
@@ -148,6 +150,18 @@ func walrusConfig(port string) Ifx {
 			"bridge-access 2005",
 			"bridge-allow-untagged yes",
 		}}
+}
+
+//steam gets attached to the users network in access mode
+func steamConfig(port string) Ifx {
+	return Ifx{
+		For:  "steam",
+		Name: port,
+		BridgeDefs: []string{
+			"bridge-access 2005",
+			"bridge-allow-untagged yes",
+		}
+	}
 }
 
 //leaf gets attached to the hwcontrol network in access mode

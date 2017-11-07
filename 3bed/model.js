@@ -87,7 +87,14 @@ walrus = {
   ]
 }
 
-nodes = [boss, users, router, walrus, ...testnodes]
+steam = {
+  'name': 'steam',
+  'image': 'debian-stretch',
+  'os': 'linux',
+  'level': 2,
+}
+
+nodes = [boss, users, router, walrus, steam, ...testnodes]
 
 ///////
 // switches ~~~~~~~
@@ -110,6 +117,7 @@ links = [
   ...Range(3).map(i => Link(`n${i}`, 'eth0', 'stem', `swp${i+4}`, {boot: 1})),
   ...Range(3).map(i => Link(`n${i}`, 'eth0', 'leaf', `swp${i+1}`)),
   Link('walrus', 'eth0', 'stem', 'swp7'),
+  Link('steam', 'eth0', 'stem', 'swp9'),
   Link('stem', 'swp8', 'leaf', 'swp4'),
 
 ];
