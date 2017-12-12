@@ -6,7 +6,13 @@ set -e
 cd /usr/testbed
 mkdir -p obj
 cd obj
-../src/configure --with-TBDEFS=/tmp/config/defs-vbed-3 &> /var/log/users_configure
+
+../src/configure \
+  --with-TBDEFS=/tmp/config/defs-vbed-3 \
+  --with-WALRUS=yes \
+  &> /var/log/users_configure
+
+
 cd install
 perl ./users-install -b &> /var/log/users_install
 

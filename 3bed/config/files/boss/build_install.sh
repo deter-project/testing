@@ -6,6 +6,11 @@ set -e
 cd /usr/testbed
 mkdir -p obj
 cd obj
-../src/configure --with-TBDEFS=/tmp/config/defs-vbed-3 &> /var/log/boss_configure
+
+../src/configure \
+  --with-TBDEFS=/tmp/config/defs-vbed-3 \
+  --with-WALRUS=yes \
+  &> /var/log/boss_configure
+
 cd install
 perl ./boss-install -b &> /var/log/boss_install
