@@ -60,7 +60,7 @@ netlinkMount = {
 
 router = {
   'name': 'router',
-  'image': 'freebsd-11-router',
+  'image': 'freebsd-11r',
   'os': 'freebsd',
   'level': 1,
   'mounts': [ configMount('router') ]
@@ -93,10 +93,17 @@ nodes = [boss, users, router, walrus, ...testnodes]
 // switches ~~~~~~~
 ////
 
+tbswitch = (name, level, mounts) => ({
+  'name': name,
+  'image': 'cumulusvx-3.5',
+  'os': 'linux',
+  'level': level,
+  'mounts': mounts
+});
 
 switches = [
-  Switch('stem', 2, [...deter_mounts, configMount('stem'), agxMount, netlinkMount]),
-  Switch('leaf', 4, [...deter_mounts, configMount('leaf'), agxMount, netlinkMount])
+  tbswitch('stem', 2, [...deter_mounts, configMount('stem'), agxMount, netlinkMount]),
+  tbswitch('leaf', 4, [...deter_mounts, configMount('leaf'), agxMount, netlinkMount])
 ];
 
 ///////

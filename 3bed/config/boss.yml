@@ -21,6 +21,28 @@
         # /etc/rc.d/routing restart is a jackass, it clobbers dhcp routes but 
         # does not bother to put them back, so we need to restart dhclient to 
         # get them back ourselves
+        
+    - name: set up repo
+      copy:
+        content: |
+          custom: {
+            url: "https://fbsd-build.deterlab.net/11amd64-deter",
+            enabled: yes
+          }
+        dest: /etc/pkg/FreeBSD.conf
+
+    - name: install software
+      package:
+        name: "{{ item }}"
+        state: present
+        use: pkgng
+      with_items:
+        - portmaster
+        - curl
+        - deter-boss
+        - lldpd
+        - go
+        - git
 
     - name: make sure bashrc exists
       file:
