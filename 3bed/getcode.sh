@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+# get deter client utilities
 
 here=`pwd`
 
@@ -17,14 +17,16 @@ codedir=`pwd`
 if [[ ! -f /usr/local/bin/deter-admin ]]; then
 curl -OL https://mirror.deterlab.net/deter/bin/deter-admin
 sudo mv deter-admin /usr/local/bin/
-chmod +x /usr/local/bin/deter-admin
+sudo chmod +x /usr/local/bin/deter-admin
+sudo ln -s /usr/local/bin/deter-admin /usr/bin/deter-admin
 fi
 
 # wtf
 if [[ ! -f /usr/local/bin/wtf ]]; then
 curl -OL https://mirror.deterlab.net/bakery/wtf/wtf
 sudo mv wtf /usr/local/bin/
-chmod +x /usr/local/bin/wtf
+sudo chmod +x /usr/local/bin/wtf
+sudo -ln -s /usr/local/bin/wtf /usr/bin/wtf
 fi
 
 if [[ ! -d testbed ]]; then

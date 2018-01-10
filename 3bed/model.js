@@ -47,9 +47,14 @@ netlinkMount = {
 
 [boss, users] = ['boss', 'users'].map(name => ({
     'name': name,
-    'image': 'freebsd-11',
+    'image': 'freebsd-11d',
     'os': 'freebsd',
-    'level': 1,
+    'cpu': {
+      'cores': 4
+    },
+    'memory': {
+      'capacity': GB(8)
+    },
     'mounts': [
       ...deter_mounts,
       configMount(name),
@@ -62,7 +67,12 @@ router = {
   'name': 'router',
   'image': 'freebsd-11r',
   'os': 'freebsd',
-  'level': 1,
+    'cpu': {
+      'cores': 2
+    },
+    'memory': {
+      'capacity': GB(4)
+    },
   'mounts': [ configMount('router') ]
 };
 
@@ -71,7 +81,12 @@ testnodes = Range(3).map(i => ({
     'image': 'netboot',
     'os': 'netboot',
     'no-testnet': true,
-    'level': 3,
+    'cpu': {
+      'cores': 2
+    },
+    'memory': {
+      'capacity': GB(4)
+    },
     'mounts': [ configMount('router') ]
   })
 );
@@ -80,7 +95,6 @@ walrus = {
   'name': 'walrus',
   'image': 'debian-stretch',
   'os': 'linux',
-  'level': 2,
   'mounts': [ 
     configMount('walrus'),
     { 'source': env.WALRUSDIR, 'point': '/opt/walrus' },
@@ -93,17 +107,16 @@ nodes = [boss, users, router, walrus, ...testnodes]
 // switches ~~~~~~~
 ////
 
-tbswitch = (name, level, mounts) => ({
+tbswitch = (name, mounts) => ({
   'name': name,
   'image': 'cumulusvx-3.5',
   'os': 'linux',
-  'level': level,
   'mounts': mounts
 });
 
 switches = [
-  tbswitch('stem', 2, [...deter_mounts, configMount('stem'), agxMount, netlinkMount]),
-  tbswitch('leaf', 4, [...deter_mounts, configMount('leaf'), agxMount, netlinkMount])
+  tbswitch('stem', [...deter_mounts, configMount('stem'), agxMount, netlinkMount]),
+  tbswitch('leaf', [...deter_mounts, configMount('leaf'), agxMount, netlinkMount])
 ];
 
 ///////

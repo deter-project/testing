@@ -44,7 +44,7 @@ replace into switch_stacks (
            ('stem', 'Control', 1)
 ;
 
-insert into node_type_attributes (
+replace into node_type_attributes (
   type, 
   attrkey, 
   attrvalue, 
