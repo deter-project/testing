@@ -124,13 +124,13 @@ switches = [
 ////
 
 links = [
-  Link('boss', 'eth0', 'stem', 'swp1'),
-  Link('users', 'eth0', 'stem', 'swp2'),
-  Link('router', 'eth0', 'stem', 'swp3'),
-  ...Range(3).map(i => Link(`n${i}`, 'eth0', 'stem', `swp${i+4}`, {boot: 1})),
-  ...Range(3).map(i => Link(`n${i}`, 'eth0', 'leaf', `swp${i+1}`)),
-  Link('walrus', 'eth0', 'stem', 'swp7'),
-  Link('stem', 'swp8', 'leaf', 'swp4'),
+  Link('boss', 0, 'stem', 1),
+  Link('users', 0, 'stem', 2),
+  Link('router', 0, 'stem', 3),
+  ...Range(3).map(i => Link(`n${i}`, 0, 'stem', i+4, {boot: 1})),
+  ...Range(3).map(i => Link(`n${i}`, 0, 'leaf', i+1)),
+  Link('walrus', 0, 'stem', 7),
+  Link('stem', 8, 'leaf', 4),
 
 ];
 
