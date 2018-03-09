@@ -1,6 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
-set -x
+export GOPATH=~/.go
+export GOBIN=$GOPATH/bin
+export PATH=$GOBIN:$PATH
+mkdir -p $GOBIN
+
+go get -u github.com/golang/dep/cmd/dep
+
+mkdir -p $GOPATH/src/github.com/deter-project/testing
+ln -sf `pwd` $GOPATH/src/github.com/deter-project/testing
+cd $GOPATH/src/github.com/deter-project/testing/3bed/pre-config
 
 dep ensure
 
