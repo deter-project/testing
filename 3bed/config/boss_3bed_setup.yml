@@ -27,6 +27,24 @@
         - "stem IN A 192.168.254.1"
         - "leaf IN A 192.168.254.2"
 
+    - name: Make snmpit-qbridge runtime dir
+      file:
+        path: /var/run/snmpit
+        state: directory
+        mode: "a+rw"
+
+    - name: install dsnmp
+      get_url:
+        url: https://github.com/deter-project/switch-drivers/releases/download/v0.1/snmpd-fbsd
+        dest: /usr/testbed/bin/dsnmp
+        mode: "a+x"
+
+    - name: install lldp-switchmac
+      get_url:
+        url: https://github.com/deter-project/switch-drivers/releases/download/v0.1/lldp-switchmac-fbsd
+        dest: /usr/testbed/bin/lldp-switchmac
+        mode: "a+x"
+
     - name: Re-initialize testbed dns
       command:  /usr/testbed/sbin/named_setup
 

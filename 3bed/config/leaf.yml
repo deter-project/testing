@@ -37,25 +37,25 @@
         name: snmpd
         state: restarted
 
-    - file:
-        path: /root/.go/src/github.com/rcgoodfellow
-        state: directory
+        #- file:
+        #path: /root/.go/src/github.com/rcgoodfellow
+        #state: directory
 
-    - file:
-        src: "/opt/{{item}}"
-        dest: "/root/.go/src/github.com/rcgoodfellow/{{item}}"
-        state: link
-      with_items:
-        - agx
-        - netlink
+        #- file:
+        #src: "/opt/{{item}}"
+        #dest: "/root/.go/src/github.com/rcgoodfellow/{{item}}"
+        #state: link
+        # with_items:
+        #- agx
+        #- netlink
 
-    - lineinfile:
-        line: "{{ item }}"
-        path: /root/.bashrc
-      with_items:
-        - export GOPATH=/root/.go
-        - export GOBIN=/root/.go/bin
-        - export PATH=/root/.go/bin:$PATH
+          #- lineinfile:
+          #line: "{{ item }}"
+          #path: /root/.bashrc
+          #with_items:
+          #- export GOPATH=/root/.go
+          #- export GOBIN=/root/.go/bin
+          #- export PATH=/root/.go/bin:$PATH
 
     - lineinfile:
         path: /etc/network/interfaces
@@ -64,19 +64,25 @@
 
     - shell: ifup vlan2004
     
-    - shell: go get {{item}}
-      environment:
-        GOPATH: /root/.go
-      with_items:
-        - github.com/pkg/profile
-        - github.com/vishvananda/netlink/nl
+      #- shell: go get {{item}}
+        #environment:
+        #  GOPATH: /root/.go
+        #with_items:
+        #  - github.com/pkg/profile
+        #  - github.com/vishvananda/netlink/nl
 
-    - shell: go install
-      args:
-        chdir: /root/.go/src/github.com/rcgoodfellow/agx/qbridge
-      environment:
-        GOPATH: /root/.go
-        GOBIN: /root/.go/bin
+      #- shell: go install
+        #args:
+        #chdir: /root/.go/src/github.com/rcgoodfellow/agx/qbridge
+        #environment:
+        #GOPATH: /root/.go
+        # GOBIN: /root/.go/bin
+
+    - name: install qbridge
+      get_url:
+        url: https://github.com/rcgoodfellow/agx/releases/download/v0.1/qbridge
+        dest: /usr/local/bin/qbridge
+        mode: "a+x"
 
     - shell: nohup /root/.go/bin/qbridge > /dev/null 2>&1  &
 

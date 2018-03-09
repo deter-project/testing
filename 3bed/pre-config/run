@@ -2,6 +2,10 @@
 
 set -x
 
-GOPATH=/root/.go go run rvn2cumulus.go $TOPOJSON
-GOPATH=/root/.go go run controlmacs.go $TOPOJSON
+dep ensure
+
+make -j2
+
+./rvn2cumulus $TOPOJSON
+./controlmacs $TOPOJSON
 

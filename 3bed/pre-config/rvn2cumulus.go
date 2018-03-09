@@ -118,10 +118,10 @@ func main() {
 }
 
 //boss gets attached almost everything in trunk mode
-func bossConfig(port string) Ifx {
+func bossConfig(port int) Ifx {
 	return Ifx{
 		For:  "boss",
-		Name: port,
+		Name: fmt.Sprintf("swp%d", port),
 		BridgeDefs: []string{
 			"bridge-vids 2002 2003 2004 2006 2007",
 			"bridge-allow-untagged no",
@@ -129,10 +129,10 @@ func bossConfig(port string) Ifx {
 }
 
 //users gets attached to a few things in trunk mode
-func usersConfig(port string) Ifx {
+func usersConfig(port int) Ifx {
 	return Ifx{
 		For:  "users",
-		Name: port,
+		Name: fmt.Sprintf("swp%d", port),
 		BridgeDefs: []string{
 			"bridge-vids 2002 2003 2005",
 			"bridge-allow-untagged no",
@@ -140,10 +140,10 @@ func usersConfig(port string) Ifx {
 }
 
 //walrus gets attached to the users network in access mode
-func walrusConfig(port string) Ifx {
+func walrusConfig(port int) Ifx {
 	return Ifx{
 		For:  "walrus",
-		Name: port,
+		Name: fmt.Sprintf("swp%d", port),
 		BridgeDefs: []string{
 			"bridge-access 2005",
 			"bridge-allow-untagged yes",
@@ -151,10 +151,10 @@ func walrusConfig(port string) Ifx {
 }
 
 //leaf gets attached to the hwcontrol network in access mode
-func leafConfig(port string) Ifx {
+func leafConfig(port int) Ifx {
 	return Ifx{
 		For:  "leaf",
-		Name: port,
+		Name: fmt.Sprintf("swp%d", port),
 		BridgeDefs: []string{
 			"bridge-access 2004",
 			"bridge-allow-untagged yes",
@@ -162,10 +162,10 @@ func leafConfig(port string) Ifx {
 }
 
 //boss gets attached everything in trunk mode
-func routerConfig(port string) Ifx {
+func routerConfig(port int) Ifx {
 	return Ifx{
 		For:  "router",
-		Name: port,
+		Name: fmt.Sprintf("swp%d", port),
 		BridgeDefs: []string{
 			"bridge-vids 2002 2003 2004 2005 2006 2007",
 			"bridge-allow-untagged no",
@@ -173,7 +173,7 @@ func routerConfig(port string) Ifx {
 }
 
 //all other classes of nodes are relegated to access on 2003
-func nodeConfig(switchName, port, who string) Ifx {
+func nodeConfig(switchName string, port int, who string) Ifx {
 
 	//control net defaults to 2003
 	vlan := "2003"
@@ -184,7 +184,7 @@ func nodeConfig(switchName, port, who string) Ifx {
 	}
 	return Ifx{
 		For:  who,
-		Name: port,
+		Name: fmt.Sprintf("swp%d", port),
 		BridgeDefs: []string{
 			"bridge-access " + vlan,
 			"bridge-allow-untagged yes",

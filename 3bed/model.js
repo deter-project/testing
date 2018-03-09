@@ -5,21 +5,14 @@
 // hey! listen! ~~~
 // TBDIR
 // TOPODIR 
-// SWITCHDIR
 // WALRUSDIR
-// AGXDIR
-// NLDIR
 // are environment variables that you must set when calling rvn build
 
 // define the mounts we will use later in node definitions
 deter_mounts = [{
     'source': env.TBDIR,
     'point': '/opt/deter/testbed'
-  },{
-    'source': env.SWITCHDIR,
-    'point': '/opt/deter/switch-drivers'
-  }
-];
+  }];
 
 ///////
 // mounts ~~~~~~~
@@ -29,16 +22,6 @@ configMount = (name) => ({
   'source': env.TOPODIR + '/config/files/' +name,
   'point': '/tmp/config'
 });
-
-agxMount = { 
-  'source': env.AGXDIR,   
-  'point': '/opt/agx' 
-};
-
-netlinkMount = { 
-  'source': env.NLDIR, 
-  'point': '/opt/netlink' 
-};
 
 
 ///////
@@ -115,8 +98,8 @@ tbswitch = (name, mounts) => ({
 });
 
 switches = [
-  tbswitch('stem', [...deter_mounts, configMount('stem'), agxMount, netlinkMount]),
-  tbswitch('leaf', [...deter_mounts, configMount('leaf'), agxMount, netlinkMount])
+  tbswitch('stem', [...deter_mounts, configMount('stem')]),
+  tbswitch('leaf', [...deter_mounts, configMount('leaf')])
 ];
 
 ///////
