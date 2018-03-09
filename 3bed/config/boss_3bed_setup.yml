@@ -42,7 +42,7 @@
     - name: install lldp-switchmac
       get_url:
         url: https://github.com/deter-project/switch-drivers/releases/download/v0.1/lldp-switchmac-fbsd
-        dest: /usr/testbed/bin/lldp-switchmac
+        dest: /usr/testbed/sbin/lldp-switchmac
         mode: "a+x"
 
     - name: Re-initialize testbed dns
