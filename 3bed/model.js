@@ -36,7 +36,7 @@ configMount = (name) => ({
       'cores': 4
     },
     'memory': {
-      'capacity': GB(8)
+      'capacity': GB(4)
     },
     'mounts': [
       ...deter_mounts,
@@ -54,7 +54,7 @@ router = {
       'cores': 2
     },
     'memory': {
-      'capacity': GB(4)
+      'capacity': GB(2)
     },
   'mounts': [ configMount('router') ]
 };
@@ -68,7 +68,7 @@ testnodes = Range(3).map(i => ({
       'cores': 2
     },
     'memory': {
-      'capacity': GB(4)
+      'capacity': GB(1)
     },
     'mounts': [ configMount('router') ]
   })
