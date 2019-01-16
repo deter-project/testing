@@ -7,8 +7,9 @@ mkdir -p $GOBIN
 
 go get -u github.com/golang/dep/cmd/dep
 
-mkdir -p $GOPATH/src/github.com/deter-project/testing
-ln -sf `pwd` $GOPATH/src/github.com/deter-project/testing
+rm -rf $GOPATH/src/github.com/deter-project/testing
+mkdir -p $GOPATH/src/github.com/deter-project
+ln -sf `pwd`/../.. $GOPATH/src/github.com/deter-project/testing
 cd $GOPATH/src/github.com/deter-project/testing/3bed/pre-config
 
 dep ensure

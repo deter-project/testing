@@ -2,6 +2,7 @@
 
 
 [[projects]]
+  digest = "1:555e710a62aa1b6b0c48f95ec31bc4001ea87852063ae7cce78a95db8afc9024"
   name = "github.com/go-redis/redis"
   packages = [
     ".",
@@ -11,32 +12,39 @@
     "internal/pool",
     "internal/proto",
     "internal/singleflight",
-    "internal/util"
+    "internal/util",
   ]
+  pruneopts = "UT"
   revision = "9133634a132e00309476e2d9acbf0c8058d4c888"
   version = "v6.10.0"
 
 [[projects]]
+  digest = "1:b50988ddad82c1c42991103b4b257aa4f631df477410b41a66f76d1a6dce47b3"
   name = "github.com/libvirt/libvirt-go"
   packages = ["."]
+  pruneopts = "UT"
   revision = "b8570d1869813105e8fb57b728900a98291658f7"
   version = "v4.1.0"
 
 [[projects]]
+  digest = "1:4309c49571d409d9d0f7658059d565a93a260ca4ff7481b8ef6fc389641235e0"
   name = "github.com/libvirt/libvirt-go-xml"
   packages = ["."]
+  pruneopts = "UT"
   revision = "5f9fae2df1fe73edd9fc80983d7f44db61f7088d"
   version = "v4.1.0"
 
 [[projects]]
+  digest = "1:8046fc6ec2855b97ed8f6ab1be3493789906a1e9c1475851f25cfbbdb538cafa"
   name = "github.com/rcgoodfellow/raven"
   packages = ["rvn"]
+  pruneopts = "UT"
   revision = "27ce6e8d8e5c8adc1803c3efa7468f291e255e43"
   version = "v0.1"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "08225446d3369bb7efee0aef95fdf0acc3e636ab1a017c06d87301baf07dbdf1"
+  input-imports = ["github.com/rcgoodfellow/raven/rvn"]
   solver-name = "gps-cdcl"
   solver-version = 1
